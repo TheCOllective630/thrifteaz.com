@@ -7,14 +7,13 @@
   <meta name="description" content="AI-powered scanning app for thrifters and resellers. Identify items and get real sold prices from eBay and Mercari instantly.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { background: #590016; color: #fff; min-height: 100vh; font-family: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
     body { display: flex; flex-direction: column; align-items: center; padding: 4rem 1.5rem; line-height: 1.55; }
     main { max-width: 640px; width: 100%; }
-    .wordmark { font-family: 'Caveat', cursive; font-size: clamp(4rem, 12vw, 6.5rem); font-weight: 700; text-align: center; line-height: 1; margin-bottom: 1rem; letter-spacing: 0.5px; }
-    .wordmark .sparkle { font-size: 0.5em; vertical-align: super; opacity: 0.85; margin-left: 0.1em; }
+    .wordmark { display: block; max-width: 480px; width: 100%; height: auto; margin: 0 auto 1rem; }
     .tagline { font-size: 1.05rem; text-align: center; opacity: 0.7; margin-bottom: 4rem; letter-spacing: 0.5px; }
     h1 { font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.25rem; letter-spacing: -0.5px; }
     p { font-size: 1.05rem; opacity: 0.85; margin-bottom: 1.5rem; }
@@ -33,7 +32,7 @@
 </head>
 <body>
   <main>
-    <div class="wordmark">Thrifteaz<span class="sparkle">✦</span></div>
+    <img src="wordmark.png" alt="Thrifteaz" class="wordmark">
     <div class="tagline">Find it · Scan it · Score</div>
 
     <div class="status">Launching Summer 2026</div>
