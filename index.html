@@ -3,73 +3,260 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thrifteaz — Find it · Scan it · Score</title>
-  <meta name="description" content="AI-powered scanning app for thrifters and resellers. Identify items and get real sold prices from eBay and Mercari instantly.">
-<meta name="google-site-verification" content="eJ2bVl4rtKl_Zm0G_MDWGCt7Z0pzeL4-Dnqh2iukwko" />
+  <title>Thrifteaz — Know exactly what your thrift finds are worth</title>
+  <meta name="description" content="AI-powered scanning app for thrifters and resellers. Real eBay/Mercari sold prices, multi-photo authentication, voice-style listings.">
+  <meta name="google-site-verification" content="eJ2bVl4rtKl_Zm0G_MDWGCt7Z0pzeL4-Dnqh2iukwko" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: #590016; color: #fff; min-height: 100vh; font-family: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-    body { display: flex; flex-direction: column; align-items: center; padding: 4rem 1.5rem; line-height: 1.55; }
-    main { max-width: 640px; width: 100%; }
+    html, body { background: #590016; color: #fff; min-height: 100vh; font-family: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.55; }
+    body { display: flex; flex-direction: column; align-items: center; padding: 3rem 1.5rem; }
+    main { max-width: 720px; width: 100%; }
+
     .wordmark { display: block; max-width: 480px; width: 100%; height: auto; margin: 0 auto 1rem; }
-    .tagline { font-size: 1.05rem; text-align: center; opacity: 0.7; margin-bottom: 4rem; letter-spacing: 0.5px; }
-    h1 { font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.25rem; letter-spacing: -0.5px; }
-    p { font-size: 1.05rem; opacity: 0.85; margin-bottom: 1.5rem; }
-    p.lead { font-size: 1.15rem; opacity: 0.95; }
-    .features { display: grid; gap: 1rem; margin: 2.5rem 0 3rem; }
-    .feature { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 1.25rem 1.5rem; }
-    .feature h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
-    .feature p { font-size: 0.95rem; opacity: 0.75; margin: 0; }
-    .meta { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 2rem; margin-top: 3rem; font-size: 0.95rem; opacity: 0.8; }
+    .tagline { font-size: 1rem; text-align: center; opacity: 0.65; margin-bottom: 3rem; letter-spacing: 0.5px; }
+    .status { display: inline-block; padding: 0.35rem 0.85rem; background: rgba(201, 151, 58, 0.18); border: 1px solid rgba(201, 151, 58, 0.4); border-radius: 999px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f0c97a; margin-bottom: 1.25rem; }
+    h1 { font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.25rem; letter-spacing: -0.5px; }
+    .lead { font-size: 1.15rem; opacity: 0.9; margin-bottom: 2.5rem; }
+    .lead strong { color: #f0c97a; font-weight: 700; }
+
+    .waitlist { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 18px; padding: 1.75rem; margin-bottom: 4rem; }
+    .waitlist-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .waitlist-sub { font-size: 0.95rem; opacity: 0.75; margin-bottom: 1.25rem; }
+    .waitlist-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    @media (min-width: 540px) { .waitlist-form { flex-direction: row; } }
+    .waitlist-form input[type="email"] { flex: 1; padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.06); color: #fff; font-size: 1rem; font-family: inherit; }
+    .waitlist-form input[type="email"]::placeholder { color: rgba(255, 255, 255, 0.4); }
+    .waitlist-form input[type="email"]:focus { outline: none; border-color: #f0c97a; background: rgba(255, 255, 255, 0.1); }
+    .waitlist-form button { padding: 0.85rem 1.5rem; border-radius: 12px; border: none; background: #f0c97a; color: #2d0a13; font-size: 1rem; font-weight: 700; font-family: inherit; cursor: pointer; transition: transform 0.15s, background 0.15s; }
+    .waitlist-form button:hover { background: #f5d28a; transform: translateY(-1px); }
+
+    section { margin-bottom: 4rem; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #f0c97a; margin-bottom: 0.75rem; }
+    h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; letter-spacing: -0.3px; }
+
+    .steps { display: grid; gap: 1rem; }
+    @media (min-width: 700px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+    .step { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; padding: 1.5rem; text-align: center; }
+    .step-num { display: inline-block; width: 36px; height: 36px; line-height: 34px; border-radius: 50%; background: rgba(240, 201, 122, 0.18); border: 1px solid rgba(240, 201, 122, 0.4); color: #f0c97a; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.85rem; }
+    .step-emoji { font-size: 2rem; margin-bottom: 0.75rem; }
+    .step-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .step-desc { font-size: 0.95rem; opacity: 0.75; line-height: 1.5; }
+
+    .features { display: grid; gap: 1rem; }
+    @media (min-width: 640px) { .features { grid-template-columns: repeat(2, 1fr); } }
+    .feature { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; padding: 1.5rem; }
+    .feature-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-title .accent { color: #f0c97a; }
+    .feature-desc { font-size: 0.95rem; opacity: 0.78; line-height: 1.5; }
+
+    .founder { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; padding: 2rem; }
+    .founder p { margin-bottom: 1rem; opacity: 0.88; font-size: 1.02rem; line-height: 1.65; }
+    .founder p:last-of-type { margin-bottom: 0; }
+    .founder-sig { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 0.95rem; opacity: 0.7; font-style: italic; }
+
+    .pricing-grid { display: grid; gap: 1rem; }
+    @media (min-width: 640px) { .pricing-grid { grid-template-columns: 1fr 1fr; } }
+    .price-card { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 18px; padding: 1.75rem; }
+    .price-card.pro { background: rgba(240, 201, 122, 0.08); border-color: rgba(240, 201, 122, 0.35); }
+    .price-tier { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.65; margin-bottom: 0.5rem; }
+    .price-card.pro .price-tier { color: #f0c97a; opacity: 1; }
+    .price-amount { font-size: 1.85rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .price-amount .small { font-size: 1rem; font-weight: 500; opacity: 0.7; }
+    .price-features { list-style: none; padding: 0; margin: 1.25rem 0 0; font-size: 0.95rem; opacity: 0.85; }
+    .price-features li { padding: 0.35rem 0; padding-left: 1.5rem; position: relative; }
+    .price-features li::before { content: "✓"; position: absolute; left: 0; color: #f0c97a; font-weight: 700; }
+    .pricing-note { text-align: center; font-size: 0.95rem; opacity: 0.65; margin-top: 1.25rem; }
+
+    .quote-card { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
+    .quote-text { font-size: 1rem; font-style: italic; opacity: 0.92; margin-bottom: 0.85rem; line-height: 1.55; }
+    .quote-attr { font-size: 0.85rem; opacity: 0.6; }
+    .placeholder-note { font-size: 0.85rem; opacity: 0.5; text-align: center; font-style: italic; margin-top: 1rem; }
+
+    .faq-item { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; }
+    .faq-q { font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem; }
+    .faq-a { font-size: 0.95rem; opacity: 0.78; line-height: 1.5; }
+
+    .meta { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 2rem; margin-top: 3rem; font-size: 0.9rem; opacity: 0.75; }
     .meta a { color: #fff; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, 0.4); }
     .meta a:hover { text-decoration-color: #fff; }
-    .meta .row { margin-bottom: 0.75rem; }
-    footer { margin-top: 3rem; font-size: 0.8rem; opacity: 0.45; text-align: center; letter-spacing: 0.5px; }
-    .status { display: inline-block; padding: 0.35rem 0.85rem; background: rgba(201, 151, 58, 0.18); border: 1px solid rgba(201, 151, 58, 0.4); border-radius: 999px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #f0c97a; margin-bottom: 1rem; }
+    .meta-row { margin-bottom: 0.6rem; }
+    footer { margin-top: 3rem; font-size: 0.78rem; opacity: 0.4; text-align: center; letter-spacing: 0.5px; }
+
+    .final-cta { text-align: center; padding: 2.5rem 1.5rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; margin-bottom: 3rem; }
+    .final-cta h2 { margin-bottom: 1rem; }
+    .final-cta p { opacity: 0.8; margin-bottom: 1.5rem; }
   </style>
 </head>
 <body>
   <main>
+
     <img src="wordmark.png" alt="Thrifteaz" class="wordmark">
     <div class="tagline">Find it · Scan it · Score</div>
 
-    <div class="status">Launching Summer 2026</div>
+    <div class="status">Launching summer 2026 · Join the waitlist</div>
 
-    <h1>Stop guessing what your thrift finds are worth.</h1>
+    <h1>Know exactly what your thrift finds are worth — before you list them.</h1>
 
-    <p class="lead">Thrifteaz is the AI-powered scanning app for thrifters and resellers. Photograph any item — clothing, sneakers, collectibles, electronics — and get real sold prices from eBay and Mercari instantly.</p>
+    <p class="lead">Thrifteaz uses AI to identify any item from a photo and pulls <strong>real sold prices from eBay and Mercari</strong> in seconds. No more guessing. No more 30-minute eBay searches in the Goodwill aisle.</p>
 
-    <p>Built for serious flippers who turn this into income, and casual thrifters who just want to know "is this worth $20 or $200?" Real sold comps, not AI guesses. Auto-generated listings. Earnings tracking.</p>
+    <div class="waitlist">
+      <div class="waitlist-title">🔔 Early access drops this summer</div>
+      <div class="waitlist-sub">Get on the list — first 200 signups get 90 days of Pro free at launch.</div>
+      <form class="waitlist-form" action="https://submit-form.com/d3kotQiOZ" method="POST">
+        <input type="email" name="email" placeholder="your@email.com" required>
+        <input type="hidden" name="_redirect" value="https://thecollective630.github.io/thrifteaz.com/#thanks">
+        <button type="submit">Get notified →</button>
+      </form>
+    </div>
 
-    <div class="features">
-      <div class="feature">
-        <h3>Real sold prices, not AI guesses</h3>
-        <p>We pull live completed-sale data from eBay and Mercari, not just what an LLM estimates.</p>
+    <section>
+      <div class="section-label">How it works</div>
+      <h2>Three taps. Real sold prices. No guesswork.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-emoji">📸</div>
+          <div class="step-title">Snap</div>
+          <div class="step-desc">Photograph the item. Daylight helps but isn't required.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-emoji">💰</div>
+          <div class="step-title">See real comps</div>
+          <div class="step-desc">Live eBay and Mercari sold listings — with dates and links.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-emoji">📝</div>
+          <div class="step-title">List it</div>
+          <div class="step-desc">AI writes the listing in your voice. Copy. Paste. Sold.</div>
+        </div>
       </div>
-      <div class="feature">
-        <h3>Tag-photo authentication</h3>
-        <p>Snap the brand tag for designer / vintage / sneaker authentication-grade identification.</p>
+    </section>
+
+    <section>
+      <div class="section-label">Built for resellers</div>
+      <h2>The features other resale apps don't have.</h2>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-title"><span class="accent">Real sold prices,</span> not AI guesses</div>
+          <div class="feature-desc">We pull live completed-sale data from eBay and Mercari, not what an LLM thinks something sold for. Every comp has a date and link.</div>
+        </div>
+        <div class="feature">
+          <div class="feature-title"><span class="accent">Tag-photo</span> authentication</div>
+          <div class="feature-desc">Snap the brand tag for authentication-grade ID. Catches counterfeits on Nike, Lululemon, vintage Levi's, designer pieces.</div>
+        </div>
+        <div class="feature">
+          <div class="feature-title"><span class="accent">Listings in your voice</span></div>
+          <div class="feature-desc">AI learns your prose style after a few posts. Auto-generates listings that sound like you, not corporate AI slop.</div>
+        </div>
+        <div class="feature">
+          <div class="feature-title"><span class="accent">Earnings tracker</span></div>
+          <div class="feature-desc">P&L per flip, per platform, per category. Know which categories actually profit. Built-in flip tracking.</div>
+        </div>
       </div>
-      <div class="feature">
-        <h3>Listings that sound like you</h3>
-        <p>AI writes listing descriptions in your voice after a few posts — copy and paste to any platform.</p>
+    </section>
+
+    <section>
+      <div class="section-label">Why I built this</div>
+      <h2>Built by a thrifter, for thrifters.</h2>
+      <div class="founder">
+        <p>I was tired of guessing what every thrift haul was actually worth. Standing in a Goodwill aisle scrolling eBay sold listings on my phone. Looking at AI estimates from other apps that hallucinated prices on items I knew the real value of.</p>
+        <p>Thrifteaz is the tool I wished existed. It pulls real sold prices, not guesses. It catches counterfeits on designer pieces. It writes the listing for you in your voice. It tracks what you actually profit on each flip.</p>
+        <p>If you flip — for fun or for income — this is for you.</p>
+        <div class="founder-sig">— Felix, founder · THRIFTEAZ LLC</div>
       </div>
-      <div class="feature">
-        <h3>Track every flip</h3>
-        <p>Built-in earnings tracker shows your real profit per platform, per category, per month.</p>
+    </section>
+
+    <section>
+      <div class="section-label">Pricing</div>
+      <h2>Free to try. Honest pricing.</h2>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-tier">Free</div>
+          <div class="price-amount">$0<span class="small"> / forever</span></div>
+          <ul class="price-features">
+            <li>5 scans per day</li>
+            <li>1 tag-photo scan per day</li>
+            <li>AI-estimated prices</li>
+            <li>Basic listing descriptions</li>
+          </ul>
+        </div>
+        <div class="price-card pro">
+          <div class="price-tier">Pro</div>
+          <div class="price-amount">$9.99<span class="small"> / month</span></div>
+          <ul class="price-features">
+            <li>Unlimited scans</li>
+            <li>Unlimited tag-photo scans</li>
+            <li>Real eBay + Mercari sold comps</li>
+            <li>Voice-style listings</li>
+            <li>Full earnings tracker</li>
+          </ul>
+        </div>
       </div>
+      <p class="pricing-note">Every new account gets 15 Pro-tier scans free. No credit card required.</p>
+    </section>
+
+    <section>
+      <div class="section-label">What testers say</div>
+      <h2>Real flippers, real flips.</h2>
+      <div class="quote-card">
+        <div class="quote-text">"Beta testimonials drop here after launch."</div>
+        <div class="quote-attr">— Coming soon · From the first ~10 resellers using Thrifteaz daily</div>
+      </div>
+      <div class="placeholder-note">Currently testing with a closed beta cohort. Public launch summer 2026.</div>
+    </section>
+
+    <section>
+      <div class="section-label">FAQ</div>
+      <h2>Quick answers.</h2>
+      <div class="faq-item">
+        <div class="faq-q">How is this different from searching eBay sold listings myself?</div>
+        <div class="faq-a">Speed. Thrifteaz returns 8 sold comparables in 5 seconds vs ~10 minutes of manual research per item. If you scan 20 items a week, that's 3+ hours saved every week.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is the AI accurate on designer pieces and vintage?</div>
+        <div class="faq-a">Multi-photo mode lets you scan the brand tag alongside the main photo for authentication-grade ID. Catches counterfeit Nike, Lululemon, fake vintage Levi's tags, designer hardware mismatches.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I'm not a Pro subscriber?</div>
+        <div class="faq-a">Free tier gives you 5 scans per day, 1 tag-photo scan, and AI-estimated prices. Pro adds unlimited scans + real eBay/Mercari sold comps + voice-style listings + earnings tracking.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Which platforms does this support?</div>
+        <div class="faq-a">eBay, Mercari, Poshmark, Depop, Facebook Marketplace. Generate the listing once, copy and paste to wherever you sell.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there a free trial of Pro?</div>
+        <div class="faq-a">Yes — every new account gets 15 Pro-tier scans free. No credit card. After the trial scans run out, you drop to the free tier unless you subscribe.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">When does it launch?</div>
+        <div class="faq-a">Summer 2026. Join the waitlist above to get early access — first 200 signups get 90 days of Pro free at launch.</div>
+      </div>
+    </section>
+
+    <div class="final-cta">
+      <h2>Stop guessing.</h2>
+      <p>Get 90 days of Pro free when we launch. First 200 only.</p>
+      <form class="waitlist-form" action="https://submit-form.com/d3kotQiOZ" method="POST">
+        <input type="email" name="email" placeholder="your@email.com" required>
+        <input type="hidden" name="_redirect" value="https://thecollective630.github.io/thrifteaz.com/#thanks">
+        <button type="submit">Get on the list →</button>
+      </form>
     </div>
 
     <div class="meta">
-      <div class="row"><strong>Contact:</strong> <a href="mailto:thrifteazadmin@gmail.com">thrifteazadmin@gmail.com</a></div>
-      <div class="row"><strong>Privacy Policy:</strong> <a href="https://auohtlmcdddoafsvmpwi.supabase.co/functions/v1/privacy">View</a></div>
-      <div class="row"><strong>Terms of Service:</strong> <a href="https://auohtlmcdddoafsvmpwi.supabase.co/functions/v1/terms">View</a></div>
+      <div class="meta-row"><strong>Contact:</strong> <a href="mailto:thrifteazadmin@gmail.com">thrifteazadmin@gmail.com</a></div>
+      <div class="meta-row"><strong>Privacy Policy:</strong> <a href="https://auohtlmcdddoafsvmpwi.supabase.co/functions/v1/privacy">View</a></div>
+      <div class="meta-row"><strong>Terms of Service:</strong> <a href="https://auohtlmcdddoafsvmpwi.supabase.co/functions/v1/terms">View</a></div>
     </div>
 
     <footer>© 2026 THRIFTEAZ LLC · Utah, USA</footer>
+
   </main>
 </body>
 </html>
