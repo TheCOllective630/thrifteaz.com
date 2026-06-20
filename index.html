@@ -51,13 +51,18 @@
     .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #f0c97a; margin-bottom: 0.75rem; }
     h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; letter-spacing: -0.3px; }
 
-    .steps { display: grid; gap: 1rem; }
-    @media (min-width: 700px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-    .step { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; padding: 1.5rem; text-align: center; }
-    .step-num { display: inline-block; width: 36px; height: 36px; line-height: 34px; border-radius: 50%; background: rgba(240, 201, 122, 0.18); border: 1px solid rgba(240, 201, 122, 0.4); color: #f0c97a; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.85rem; }
-    .step-emoji { font-size: 2rem; margin-bottom: 0.75rem; }
-    .step-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .step-desc { font-size: 0.95rem; opacity: 0.75; line-height: 1.5; }
+    .showcase { display: grid; gap: 2.5rem; }
+    .showcase-row { display: grid; gap: 1.25rem; align-items: center; }
+    @media (min-width: 700px) {
+      .showcase-row { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .showcase-row.reverse .showcase-text { order: 2; }
+      .showcase-row.reverse .showcase-img { order: 1; }
+    }
+    .showcase-img { border-radius: 28px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06); background: rgba(0, 0, 0, 0.2); max-width: 320px; margin: 0 auto; width: 100%; }
+    .showcase-img img { display: block; width: 100%; height: auto; }
+    .showcase-kicker { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #f0c97a; margin-bottom: 0.75rem; }
+    .showcase-title { font-size: clamp(1.3rem, 3vw, 1.55rem); font-weight: 800; line-height: 1.2; margin-bottom: 0.75rem; letter-spacing: -0.2px; }
+    .showcase-desc { font-size: 1rem; opacity: 0.85; line-height: 1.55; }
 
     .features { display: grid; gap: 1rem; }
     @media (min-width: 640px) { .features { grid-template-columns: repeat(2, 1fr); } }
@@ -129,24 +134,30 @@
     <section>
       <div class="section-label">How it works</div>
       <h2>Three taps. Real sold prices. No guesswork.</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-emoji">📸</div>
-          <div class="step-title">Snap</div>
-          <div class="step-desc">Photograph the item. Daylight helps but isn't required.</div>
+      <div class="showcase">
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <div class="showcase-kicker">Snap</div>
+            <h3 class="showcase-title">Open the camera. Frame the item. Tap.</h3>
+            <p class="showcase-desc">Works in Goodwill fluorescents. Works on tagged hangers. Multi-photo mode if you want authentication-grade ID on the brand tag.</p>
+          </div>
+          <div class="showcase-img"><img src="screen-1.jpg" alt="Thrifteaz camera viewfinder ready to scan an item" loading="lazy"></div>
         </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-emoji">💰</div>
-          <div class="step-title">See real comps</div>
-          <div class="step-desc">Live sold listings from eBay, Mercari, Poshmark, and more — with dates and links.</div>
+        <div class="showcase-row reverse">
+          <div class="showcase-text">
+            <div class="showcase-kicker">See real comps</div>
+            <h3 class="showcase-title">Real sold prices, not LLM guesses.</h3>
+            <p class="showcase-desc">Live completed sales from eBay, Mercari, Poshmark, and more. Dates, prices, links you can tap into. Five seconds instead of a ten-minute eBay deep-dive.</p>
+          </div>
+          <div class="showcase-img"><img src="screen-2.jpg" alt="Thrifteaz sold comp prices from real eBay listings" loading="lazy"></div>
         </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-emoji">📝</div>
-          <div class="step-title">List it</div>
-          <div class="step-desc">Real completed sales from eBay, Mercari, Poshmark, and more — actual sold prices, not estimates.</div>
+        <div class="showcase-row">
+          <div class="showcase-text">
+            <div class="showcase-kicker">List it</div>
+            <h3 class="showcase-title">Listings in your voice — not corporate AI slop.</h3>
+            <p class="showcase-desc">AI learns your prose style after ~10 posts and generates listings that sound like you. Copy, paste to wherever you sell. Done.</p>
+          </div>
+          <div class="showcase-img"><img src="screen-3.jpg" alt="Thrifteaz AI-generated listing description in user's voice" loading="lazy"></div>
         </div>
       </div>
     </section>
